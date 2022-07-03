@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "@fortawesome/fontawesome-free/css/all.css";
 import { getFoods } from '../Service/fakeFoodService';
 
 class Tables extends Component {
@@ -15,6 +16,7 @@ class Tables extends Component {
         if(this.state.foods.length === 0) return <h2> <center> Sorry! There is no foods in database. </center> </h2>
         return (
             <div>
+                
                 <h5 className='mt-4 mb-4'> <center> Showing {this.state.foods.length} foods in the database </center> </h5>
                 <table className="table table-striped table-bordered">
                     <thead className='table-dark'>
@@ -23,6 +25,7 @@ class Tables extends Component {
                         <th>Category</th>
                         <th>Stock</th>
                         <th>Price</th>
+                        <th className="ms-4 ps-4"> Favorite </th>
                         <th></th>
                         </tr>
                     </thead>
@@ -33,6 +36,9 @@ class Tables extends Component {
                             <td> {food.category.name}</td>
                             <td> {food.numberInStock}</td>
                             <td> {food.price}</td>
+                            <td>
+                                <td className="fa-regular fa-star ms-4 mt-3"></td>
+                            </td>
                             <td>
                             <button className="btn btn-danger" onClick={()=> this.handleDelete(food._id)}> Delete </button>
                             </td>
