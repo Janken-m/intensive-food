@@ -12,6 +12,10 @@ class Tables extends Component {
         this.setState({foods});
     }
 
+    styles = {
+        cursor: "pointer"
+    }
+
     render() {
         if(this.state.foods.length === 0) return <h2> <center> Sorry! There is no foods in database. </center> </h2>
         return (
@@ -37,7 +41,7 @@ class Tables extends Component {
                             <td> {food.numberInStock}</td>
                             <td> {food.price}</td>
                             <td>
-                                <td className="fa-regular fa-star ms-4 mt-3"></td>
+                                <td style={this.styles} className="fa-regular fa-star ms-4 mt-3"></td>
                             </td>
                             <td>
                             <button className="btn btn-danger" onClick={()=> this.handleDelete(food._id)}> Delete </button>
