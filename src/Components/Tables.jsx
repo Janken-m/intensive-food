@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "@fortawesome/fontawesome-free/css/all.css";
 import { getFoods } from '../Service/fakeFoodService';
+import Pagination from './Pagination';
 
 class Tables extends Component {
     state = {
@@ -47,10 +48,9 @@ class Tables extends Component {
                             <button className="btn btn-danger" onClick={()=> this.handleDelete(food._id)}> Delete </button>
                             </td>
                         </tr> ))} 
-
-                       
                     </tbody>
                 </table>
+                <Pagination/>
             </div>
         );
     }
