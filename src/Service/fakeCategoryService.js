@@ -7,3 +7,14 @@ const categories = [
   export function getCategories() {
     return categories;
   }
+
+
+  const currentPage = [
+    {id : 1, active : false},
+    {id : 2, active : false},
+    {id : 3, active : false}
+  ];
+
+  export function getCurrentPage(){
+    return currentPage;
+  }

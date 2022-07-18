@@ -1,22 +1,58 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Pagination extends Component {
+  state = {
+    active: false,
+  };
 
-    render() {
-        return (
-            <div>
-                <nav>
-                    <li className='pagination'>
-                        <button className='page-link' style={{color: "black"}}> Previous</button>
-                        <button className='page-link'>1</button>
-                        <button className='page-link'>2</button>
-                        <button className='page-link'>3</button>
-                        <button className='page-link' style={{color: "black"}}> Next</button>
-                    </li>
-                </nav>
-            </div>
-        );
-    }
+  handleActive = () => {
+    let active = this.state.active;
+    active = !active;
+    this.setState({ active });
+  };
+
+  handleBgActive() {
+    let classes = "page-item ";
+    classes += this.state.active ? "active" : "";
+    return classes;
+  }
+
+  styles = {
+    cursor: "pointer",
+  };
+
+  render() {
+    return (
+      <div>
+        <nav>
+          <ul className="pagination">
+            <li
+              className={this.handleBgActive()}
+              style={this.styles}
+              onClick={this.handleActive}
+            >
+              <span className="page-link">1</span>
+            </li>
+            <li
+              className={this.handleBgActive()}
+              style={this.styles}
+              onClick={this.handleActive}
+            >
+              <span className="page-link">2</span>
+            </li>
+            <li
+              className={this.handleBgActive()}
+              style={this.styles}
+              onClick={this.handleActive}
+            >
+              <span className="page-link">3</span>
+
+            </li>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 }
 
 export default Pagination;
