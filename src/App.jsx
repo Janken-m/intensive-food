@@ -6,16 +6,17 @@ import { getCategories } from "./Service/fakeCategoryService";
 class App extends Component {
   state = {
     Category: getCategories(),
-}
-    render() {
-        return (
-          <div>
-          <ListGroup categorys={this.state.Category} />
-           <div className="container">
-            <Tables/> 
-              </div>
-          </div>
-        )}
+  };
+  render() {
+    return (
+      <div>
+        <ListGroup categorys={this.state.Category} />
+        <div className="container">
+          <Tables />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
