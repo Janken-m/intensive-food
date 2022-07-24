@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import "@fortawesome/fontawesome-free/css/all.css";
 import { getFoods } from '../Service/fakeFoodService';
 import Pagination from './Pagination';
-import Favorite from './Favorite';
+import Favorite from '../common/Favorite';
 
 class Tables extends Component {
     state = {
         foods: getFoods(),
+    }
+
+
+    handleFavorite = (food) => {
+        const foods = [...this.state.foods];
+        const index = foods.indexOf(food);
+        foods[index] = {...food};
+        foods[index].isFavorite = !foods[index].isFavorite;
+        this.setState({foods});
     }
 
     handleDelete(id){
@@ -40,7 +49,10 @@ class Tables extends Component {
                             <td> {food.numberInStock}</td>
                             <td> {food.price}</td>
                             <td>
-                                 <Favorite/>
+                                 <Favorite
+                                 onFavorite= {()=> this.handleFavorite(food)}
+                                 isFavorite = {food.isFavorite}
+                                 />
                             </td>
                             <td>
                             <button className="btn btn-danger" onClick={()=> this.handleDelete(food._id)}> Delete </button>
