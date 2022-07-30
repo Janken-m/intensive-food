@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Tables from "./Components/Tables";
+import Foods from "./Components/Foods";
 
 class App extends Component {
 
   render() {
     return (
         <>
-          <Tables />
+          <Foods />
         </>
     );
   }
