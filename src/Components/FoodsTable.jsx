@@ -13,8 +13,8 @@ class FoodsTable extends Component {
       content: (data) => (<Favorite onFavorite={() => this.props.onFavor(data)} isFavorite={data.isFavorite}/>),
     },
     {
-      key: "Delete",
-      content: (data) => ( <button onClick={() => this.props.onDelete(data)}className="btn btn-danger">Delete</button>),
+      key: "delete",
+      content: (data) => (<button onClick={() => this.props.onDelete(data)} className="btn btn-danger">Delete</button>),
     },
 ];
   render() {

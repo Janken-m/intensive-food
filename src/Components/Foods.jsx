@@ -44,8 +44,8 @@ class Foods extends Component {
 
   handleSort = (sortColumn) => this.setState({sortColumn}); //sortering /FoodsTable
 
-  handleDelete(food) {
-    const foods = this.state.foods.filter((f) => f._id !== food.id);
+  handleDelete = (food) => {
+    const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods ,currentCategory: 1, currentPage: 1 });
   };
 
