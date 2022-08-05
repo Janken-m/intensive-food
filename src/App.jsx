@@ -1,27 +1,25 @@
 import React, { Component } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Foods from "./Components/Foods";
 import NavBar from "./Components/NavBar";
 import Customers from "./Components/Customers";
 import Orders from "./Components/Orders";
-import TableBody from "./common/TableBody";
 import NotFound from "./Components/NotFound";
 
 class App extends Component {
-
   render() {
     return (
-        <div>
-          <NavBar />
-            <Switch>
-              <Route path= "/foods/?" component={TableBody}/>
-              <Route path= "/customers" component={Customers}/>
-              <Route path= "/orders" component={Orders}/>
-              <Route path= "/notfound" component={NotFound}/>
-              <Route exact path="/" component= {Foods}/>
-              <Redirect to="/NOTFOUND"/>
-            </Switch>
-        </div>
+      <div>
+        <NavBar />
+        <Switch>
+          <Route path="/customers" component={Customers} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/not-found" component={NotFound} />
+          <Route path="/intensive-food" component={Foods} />
+          <Route exact path="/" component={Foods} />
+          <Redirect to="/not-found" />
+        </Switch>
+      </div>
     );
   }
 }

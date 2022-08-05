@@ -6,7 +6,7 @@ function NavBar() {
       <nav className=" navbar-light bg-light">
           <ul className="d-flex me-4">
             <ol className="navbar-brand">
-            <NavLink className="navbar-brand" to="/">
+            <NavLink className="navbar-brand" to="/intensive-food">
             Intensive Foods
               </NavLink>
             </ol>
