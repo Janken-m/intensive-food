@@ -11,7 +11,7 @@ function NavBar() {
               </NavLink>
             </ol>
             <ol className="navbar-nav">
-              <NavLink className="nav-link" to="/">
+              <NavLink className="nav-link" to="/intensive-food">
                 Foods
               </NavLink>
             </ol>

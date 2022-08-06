@@ -10,7 +10,9 @@ function Table({datas , columns, sortColumn, onSort}) {
           sortColumn={sortColumn}
           onSort={onSort}
         />
-        <TableBody datas={datas} columns={columns} />
+        <TableBody 
+        datas={datas}
+         columns={columns} />
       </table>
     );
 }
