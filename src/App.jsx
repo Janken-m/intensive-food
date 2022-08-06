@@ -18,6 +18,7 @@ class App extends Component {
           <Route path="/orders" component={Orders} />
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/intensive-food" component={Foods} />
+          <Route exact path="/" component={Foods} />
           <Redirect to="/not-found" />
         </Switch>
       </div>
