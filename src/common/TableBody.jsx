@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
-import { Link } from 'react-router-dom';
 
 class TableBody extends Component {
     renderCell = (data, column) => {
         if (column.content) return column.content(data);
-        data.name = <Link to={`/intensive-food/${data._id}`}> {data.name} </Link>
     return _.get(data , column.path);
     } 
     
