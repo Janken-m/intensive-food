@@ -24,6 +24,16 @@ function NavBar() {
               <NavLink className="nav-link" to="/orders">
                 Orders
               </NavLink>
+              </ol>
+            <ol className="navbar-nav mx-4">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
+              </ol>
+            <ol className="navbar-nav">
+              <NavLink className="nav-link" to="/register">
+                Register
+              </NavLink>
             </ol>
           </ul>
     </nav>

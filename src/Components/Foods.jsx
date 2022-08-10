@@ -6,6 +6,8 @@ import Pagination from "../common/Pagination";
 import ListGroup from "../common/ListGroup";
 import { Paginate } from "../utils/paginate";
 import FoodsTable from "./FoodsTable";
+import {Link} from 'react-router-dom'
+import Input from '../common/Input'
 
 const DEFAULT_CATEGORY = { _id: "", name: "All Categories" }; //Fake database
 
@@ -102,7 +104,11 @@ class Foods extends Component {
           />
         </div>
         <div className="col">
+        <Link to="/intensive-food/new" className="btn btn-primary ms-2 mb-3"> New Food </Link>
           <p>Showing {filteradCount} foods in the database </p>
+
+          <Input/>
+          
           <FoodsTable
           foods = {foods}
           onFavor = {this.handleFavorite}
