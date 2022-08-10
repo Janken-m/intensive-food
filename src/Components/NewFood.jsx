@@ -1,31 +1,53 @@
-import React, { Component } from 'react';
-import Input from '../common/Input';
+import Joi from 'joi';
+import React from 'react';
+import Form from '../common/Form';
+import { getCategories } from '../Service/fakeCategoryService';
 
-class NewFood extends Component {
+class NewFood extends Form {
+    state = {
+ data : {
+    name: "",
+     category:"",
+     numberInStock :"",
+     price: "",
+    },
+     errors : {}
+    }
+
+    componentDidMount () {
+      this.setState({ category : getCategories()});
+    }
+
+    schema = Joi.object({
+        name: Joi.string().min(2).label("Name"),
+        category : Joi.any().label("category"),
+        numberInStock: Joi.number().greater(0).label("Number In Stock"),
+        price: Joi.number().greater(0).label("price")
+    })
+
+   onSubmit = () => {
+
+   }
+
     render() {
         return (
-            <div>
-                <h1 className='ms-2 mb-3'>
-                    Food Form
-                </h1>
-                <Input
-                name="name"
-                label="Name"
-                />
-                <Input
-                name="category"
-                label="Category"
-                />
-                <Input
-                name="numberInStock"
-                label="Number in stock"
-                />
-                <Input
-                name="price"
-                label="Price"
-                />
-                <button className="btn btn-primary ms-3"> Save </button>
-            </div>
+            <form onSubmit = {this.handleSubmit}>
+                    <h1 className='ms-2 mb-3'>
+                        Food Form
+                    </h1>
+                    {this.renderInput("name", "Name")}
+                    {/* {this.state.data.category.map((c) => (
+                        <ul key={c._id} className="dropdown-menu">
+                        <li>
+                            <button className='dropdown-item'> {c.name} </button>
+                        </li>
+                        </ul>
+                    ))} */}
+                    {this.renderInput("category", "Category")} 
+                    {this.renderInput("numberInStock", "Number in stock")}
+                    {this.renderInput("price", "Price")}
+                    {this.renderButton("Save")}
+            </form>
         );
     }
 }

@@ -6,7 +6,7 @@ function Input({name , label, onChange, error, value}) {
         <label htmlFor={name} className="form-label">
           {label}
         </label>
-        <input onChange={onChange} value={value} className="form-control" id={name} name={name} />
+        <input onChange={onChange} value={value} className="form-control" id={name} name={name}  />
         {error && <div className='alert alert-danger'> {error} </div>}
       </div>
     );
