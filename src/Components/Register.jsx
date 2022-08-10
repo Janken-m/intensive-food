@@ -14,6 +14,10 @@ class Register extends Form {
         name: Joi.string().required().min(2).label("Name"),
         password: Joi.string().required().min(5).label("Password")
     })
+
+    doSubmit = () => {
+        console.log("LOGGEDIN")
+    }
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
