@@ -53,7 +53,7 @@ class Foods extends Component {
 
   handleSearch = ({target : input}) => {
     const foods = [...this.state.foods]
-    if ( input.value.toLowerCase() === "") {
+    if ( input.value == "") {
       window.location.reload(true)
       return this.state.foods
      }
