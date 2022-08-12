@@ -16,8 +16,9 @@ class Register extends Form {
     })
 
     doSubmit = () => {
-        console.log("LOGGEDIN")
-    }
+        console.log("Done")
+    };
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>

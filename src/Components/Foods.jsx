@@ -7,7 +7,7 @@ import ListGroup from "../common/ListGroup";
 import { Paginate } from "../utils/paginate";
 import FoodsTable from "./FoodsTable";
 import {Link} from 'react-router-dom'
-import Input from '../common/Input'
+import SearchBox from '../common/Input'
 
 const DEFAULT_CATEGORY = { _id: "", name: "All Categories" }; //Fake database
 
@@ -50,6 +50,17 @@ class Foods extends Component {
     const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods ,currentCategory: 1, currentPage: 1 });
   };
+
+  handleSearch = ({target : input}) => {
+    const foods = [...this.state.foods]
+    if ( input.value.toLowerCase() === "") {
+      window.location.reload(true)
+      return this.state.foods
+     }
+  const foodsSearch = foods.filter((f) => f.name.toLowerCase().startsWith(input.value.toLowerCase() || f.name ))
+    this.setState({foods : foodsSearch , currentCategory: 1, currentPage: 1 });
+
+  }
 
   getPaginatedFoods () {
     const {
@@ -107,7 +118,13 @@ class Foods extends Component {
         <Link to="/intensive-food/new" className="btn btn-primary ms-2 mb-3"> New Food </Link>
           <p>Showing {filteradCount} foods in the database </p>
 
-          <Input/>
+          <SearchBox
+          placeholder="Search"
+          value={foods.name}
+          name= "name"
+          onChange={this.handleSearch}
+
+          />
           
           <FoodsTable
           foods = {foods}

@@ -7,7 +7,7 @@ class NewFood extends Form {
     state = {
  data : {
     name: "",
-     category:"",
+     category:[],
      numberInStock :"",
      price: "",
     },
@@ -15,7 +15,8 @@ class NewFood extends Form {
     }
 
     componentDidMount () {
-      this.setState({ category : getCategories()});
+        const categories = {...getCategories()}
+      this.setState({ category : categories});
     }
 
     schema = Joi.object({
@@ -37,11 +38,11 @@ class NewFood extends Form {
                     </h1>
                     {this.renderInput("name", "Name")}
                     {/* {this.state.data.category.map((c) => (
-                        <ul key={c._id} className="dropdown-menu">
-                        <li>
-                            <button className='dropdown-item'> {c.name} </button>
-                        </li>
-                        </ul>
+                        <select key={c._id} className="form-select">
+                        <option value={c.name}>
+                            {c.name}
+                        </option>
+                        </select>
                     ))} */}
                     {this.renderInput("category", "Category")} 
                     {this.renderInput("numberInStock", "Number in stock")}
