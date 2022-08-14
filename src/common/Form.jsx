@@ -3,11 +3,12 @@ import Input from "./Input";
 
 class Form extends Component {
   state = {
-    data:{},
+    data: {},
     errors: {},
-  }
+  };
 
   validate() {
+    // HandleSubmit
     const options = { abortEarly: false };
     const { error } = this.schema.validate(this.state.data, options);
 
@@ -17,15 +18,16 @@ class Form extends Component {
     for (const detail of error.details)
       errors[detail.context.key] = detail.message;
     return errors;
-  };
+  }
 
   validateProperty({ name, value }) {
+    // handleChange
     const subSchema = this.schema.extract(name);
     const { error } = subSchema.validate(value);
 
     if (!error) return null;
     return error.message; //Joi msg
-  };
+  }
 
   handleChange = ({ target: input }) => {
     const errors = { ...this.state.errors };
@@ -49,26 +51,25 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  renderButton (label) {
+  renderButton(label) {
     return (
-        <button className="btn btn-primary ms-2" disabled={this.validate()}>
+      <button className="btn btn-primary ms-2" disabled={this.validate()}>
         {label}
       </button>
-    )
-
+    );
   }
 
-  renderInput (name, label) {
-    const {data, errors} = this.state;
+  renderInput(name, label) {
+    const { data, errors } = this.state;
     return (
-        <Input
+      <Input
         name={name}
         label={label}
         value={data[name]}
         onChange={this.handleChange}
         error={errors[name]}
       />
-    )
+    );
   }
 }
 
