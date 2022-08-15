@@ -5,6 +5,7 @@ class Form extends Component {
   state = {
     data: {},
     errors: {},
+    foods: [],
   };
 
   validate() {
@@ -47,6 +48,17 @@ class Form extends Component {
 
     this.setState({ errors: errors || {} });
     if (errors) return;
+
+    const { input } = e.target;
+
+    const NewFood = {
+      name: input.name,
+      category: input.category,
+      numberInStock: input.numberInStock,
+      price: input.price,
+    };
+    const foods = [NewFood, ...this.state.foods]; // måste fixa
+    this.setState({ foods });
 
     this.doSubmit();
   };

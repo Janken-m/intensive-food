@@ -28,15 +28,7 @@ class NewFood extends Form {
     price: Joi.number().greater(0).label("price"),
   });
 
-  onSubmit = (e) => {
-    const NewFood = {
-      name: e.target.name,
-      category: e.target.category,
-      numberInStock: e.target.numberInStock,
-      price: e.target.price,
-    };
-    const foods = [NewFood, ...this.state.foods]; // måste fixa
-    this.setState({ foods });
+  onSubmit = () => {
     console.log("submit");
   };
 
