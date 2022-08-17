@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import { getFoods } from "../Service/fakeFoodService";
+import { deleteFood, getFoods } from "../Service/fakeFoodService";
 import { getCategories } from "../Service/fakeCategoryService";
 import Pagination from "../common/Pagination";
 import ListGroup from "../common/ListGroup";
 import { Paginate } from "../utils/paginate";
 import FoodsTable from "./FoodsTable";
 import { Link } from "react-router-dom";
-import SearchBox from "../common/Input";
+import SearchBox from "../common/SearchBox";
 
 const DEFAULT_CATEGORY = { _id: "", name: "All Categories" }; //Fake database
 
@@ -17,6 +17,7 @@ class Foods extends Component {
     categories: [],
     pageSize: 4,
     currentPage: 1,
+    SearchQuery: "",
     currentCategory: DEFAULT_CATEGORY, //Fake database
     sortColumn: { path: "name", order: "asc" },
   };
@@ -43,20 +44,19 @@ class Foods extends Component {
   handlePageChange = (page) =>
     this.setState({ currentPage: page, currentCategory: 1 }); //Pagination
 
-  handleCategorySelcted = (item) => this.setState({ currentCategory: item }); //Category
+  handleCategorySelcted = (item) =>
+    this.setState({ currentCategory: item, SearchQuery: "" }); //Category + noll ställer Search när vi bytar category
 
   handleSort = (sortColumn) => this.setState({ sortColumn }); //sortering /FoodsTable
 
   handleDelete = (food) => {
     const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods, currentCategory: 1, currentPage: 1 });
+    deleteFood(food._id); //optimistik
   };
 
-  handleSearch = ({ target: input }) => {
-    const foodsSearch = this.state.foods.filter((f) =>
-      f.name.toLowerCase().startsWith(input.value.toLowerCase())
-    );
-    this.setState({ foods: foodsSearch, currentCategory: 1, currentPage: 1 });
+  handleSearch = (SearchQuery) => {
+    this.setState({ SearchQuery, currentCategory: DEFAULT_CATEGORY }); //noll ställer category när vi söker
   };
 
   getPaginatedFoods() {
@@ -64,13 +64,22 @@ class Foods extends Component {
       pageSize,
       currentPage,
       sortColumn,
+      SearchQuery,
       currentCategory,
       foods: allFoods,
     } = this.state;
 
-    const filteradFoods = currentCategory._id
-      ? allFoods.filter((foods) => foods.category._id === currentCategory._id)
-      : allFoods;
+    let filteradFoods = allFoods;
+
+    if (currentCategory._id) {
+      filteradFoods = allFoods.filter(
+        (foods) => foods.category._id === currentCategory._id
+      );
+    } else if (SearchQuery) {
+      filteradFoods = allFoods.filter((food) =>
+        food.name.toLowerCase().includes(SearchQuery.toLowerCase())
+      );
+    }
 
     const sortedFoods = _.orderBy(
       filteradFoods,
@@ -88,6 +97,7 @@ class Foods extends Component {
       pageSize,
       currentPage,
       categories,
+      SearchQuery,
       sortColumn,
       currentCategory,
       foods: allFoods,
@@ -119,9 +129,8 @@ class Foods extends Component {
           <p>Showing {filteradCount} foods in the database </p>
 
           <SearchBox
-            placeholder="Search"
-            value={foods.name}
-            name="name"
+            placeholder="Search.."
+            value={SearchQuery}
             onChange={this.handleSearch}
           />
 

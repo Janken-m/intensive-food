@@ -1,18 +1,34 @@
 import React from "react";
-import { getCategories } from "../Service/fakeCategoryService";
 
-function DropDown({ label, name, value }) {
-  const categories = getCategories();
+function DropDown({
+  name,
+  label,
+  options,
+  value,
+  error,
+  onChange,
+  placeholder,
+}) {
   return (
     <div className="mb-2 ms-2">
       <label htmlFor={name} className="form-label">
         {label}
       </label>
-      <select value={value} className="form-select" id="category">
-        {categories.map((categorie) => (
-          <option key={categorie._id}> {categorie.name}</option>
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="form-select"
+        id="category"
+      >
+        <option value=""> {placeholder} </option>
+        {options.map((option) => (
+          <option key={option._id} value={option._id}>
+            {option.name}
+          </option>
         ))}
       </select>
+      {error && <div className="alert alert-danger"> {error} </div>}
     </div>
   );
 }

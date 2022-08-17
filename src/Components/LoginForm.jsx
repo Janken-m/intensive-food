@@ -4,7 +4,7 @@ import Form from "../common/Form";
 
 class LoginForm extends Form {
   state = {
-    data: {username: "", password: ""},
+    data: { username: "", password: "" },
     errors: {},
   };
 
@@ -13,8 +13,8 @@ class LoginForm extends Form {
     password: Joi.string().required().min(4).label("Password"),
   });
 
-
-  doSubmit = () => { //vad som händer efter logg in lyckades
+  doSubmit = () => {
+    //vad som händer efter logg in lyckades
     console.log("LOGGAED IN");
   };
 
@@ -22,8 +22,8 @@ class LoginForm extends Form {
     return (
       <form onSubmit={this.handleSubmit}>
         {this.renderInput("username", "Username")}
-        {this.renderInput("password", "Password")}
-       {this.renderButton("login")}
+        {this.renderInput("password", "Password", "password")}
+        {this.renderButton("login")}
       </form>
     );
   }

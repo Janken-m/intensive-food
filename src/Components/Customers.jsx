@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react";
 
-function Customers() {
-    return (
-        <h1>
-          Customers Page  
-        </h1>
-    );
+function Customers(props) {
+  return <h1>Customers Page</h1>;
 }
 
 export default Customers;

@@ -1,11 +1,11 @@
 import { Component } from "react";
+import DropDown from "./DropDown";
 import Input from "./Input";
 
 class Form extends Component {
   state = {
     data: {},
     errors: {},
-    foods: [],
   };
 
   validate() {
@@ -18,6 +18,7 @@ class Form extends Component {
     const errors = {};
     for (const detail of error.details)
       errors[detail.context.key] = detail.message;
+
     return errors;
   }
 
@@ -27,6 +28,7 @@ class Form extends Component {
     const { error } = subSchema.validate(value);
 
     if (!error) return null;
+
     return error.message; //Joi msg
   }
 
@@ -37,7 +39,7 @@ class Form extends Component {
     else delete errors[input.name];
 
     const data = { ...this.state.data };
-    data[input.id] = input.value;
+    data[input.name] = input.value;
     this.setState({ data, errors });
   };
 
@@ -49,29 +51,22 @@ class Form extends Component {
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    const { input } = e.target;
-
-    const NewFood = {
-      name: input.name,
-      category: input.category,
-      numberInStock: input.numberInStock,
-      price: input.price,
-    };
-    const foods = [NewFood, ...this.state.foods]; // måste fixa
-    this.setState({ foods });
-
     this.doSubmit();
   };
 
   renderButton(label) {
     return (
-      <button className="btn btn-primary ms-2" disabled={this.validate()}>
+      <button
+        className="btn btn-primary ms-2"
+        onClick={() => this.doSubmit}
+        disabled={this.validate()}
+      >
         {label}
       </button>
     );
   }
 
-  renderInput(name, label) {
+  renderInput(name, label, type, placeholder = "") {
     const { data, errors } = this.state;
     return (
       <Input
@@ -80,6 +75,23 @@ class Form extends Component {
         value={data[name]}
         onChange={this.handleChange}
         error={errors[name]}
+        placeholder={placeholder}
+        type={type}
+      />
+    );
+  }
+
+  renderDrowpdown(name, label, options, placeholder = "") {
+    const { data, errors } = this.state;
+    return (
+      <DropDown
+        name={name}
+        label={label}
+        value={data[name]}
+        onChange={this.handleChange}
+        error={errors[name]}
+        options={options}
+        placeholder={placeholder}
       />
     );
   }
