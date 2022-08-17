@@ -27,7 +27,7 @@ class RegisterForm extends Form {
           <h1 className="ms-2 p-2">Register</h1>
           {this.renderInput("email", "Username")}
           {this.renderInput("name", "Name")}
-          {this.renderInput("password", "Password")}
+          {this.renderInput("password", "Password", "password")}
           {this.renderButton("Register")}
         </div>
       </form>

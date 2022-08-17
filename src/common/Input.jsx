@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ name, label, onChange, error, value, placeholder }) {
+function Input({ name, label, onChange, type, error, value, placeholder }) {
   return (
     <div className="mb-2 ms-2">
       <label htmlFor={name} className="form-label">
@@ -10,6 +10,7 @@ function Input({ name, label, onChange, error, value, placeholder }) {
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        type={type}
         className="form-control"
         id={name}
         name={name}
