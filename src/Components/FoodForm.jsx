@@ -31,9 +31,17 @@ class FoodForm extends Form {
   });
 
   async componentDidMount() {
+    this.populateCategories();
+
+    this.populateFoods();
+  }
+
+  async populateCategories() {
     const { data: categories } = await http.get(config.apiCategory);
     this.setState({ categories });
+  }
 
+  async populateFoods() {
     // känna till id av food den man klickar på!
     const foodId = this.props.match.params.id;
     if (foodId === "new") return;
@@ -44,7 +52,6 @@ class FoodForm extends Form {
 
     this.setState({ data: this.maptoViewModel(food) });
   }
-
   maptoViewModel(food) {
     //mapning till vår form
     return {
@@ -56,9 +63,8 @@ class FoodForm extends Form {
     };
   }
 
-  doSubmit = async () => {
-    const save = await saveFood(this.state.data); //function from foodInDb
-    console.log("save function", save);
+  doSubmit = () => {
+    saveFood(this.state.data); //function from foodInDb
     this.props.history.push("/intensive-food");
     console.log("Saved");
   };

@@ -26,11 +26,10 @@ async function saveFood(food) {
 
   if (!foodInDb._id) {
     foodInDb._id = Date.now().toString();
-    foods.push(foodInDb);
-    console.log("food in db", foodInDb);
+    return await http.post("http://localhost:8000/api/foods", foodInDb);
   }
 
-  return foodInDb;
+  return await http.put(config.apiFoods + `${foodInDb}`);
 }
 
 async function deleteFood(id) {
