@@ -1,8 +1,9 @@
 import React from "react";
 import Joi from "joi";
 import Form from "../common/Form";
-import { getCategories } from "../Service/fakeCategoryService";
-import { getFood, saveFood } from "../Service/fakeFoodService";
+import { getFood, saveFood } from "../Service/FoodService";
+import http from "../Service/httpService";
+import config from "../config.json";
 
 class FoodForm extends Form {
   state = {
@@ -29,15 +30,15 @@ class FoodForm extends Form {
     price: Joi.number().required().min(0).max(10).label("price"),
   });
 
-  componentDidMount() {
-    const categories = getCategories();
+  async componentDidMount() {
+    const { data: categories } = await http.get(config.apiCategory);
     this.setState({ categories });
 
     // känna till id av food den man klickar på!
     const foodId = this.props.match.params.id;
     if (foodId === "new") return;
 
-    const food = getFood(foodId);
+    const food = await getFood(foodId);
     if (!food) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.maptoViewModel(food) });
@@ -54,7 +55,7 @@ class FoodForm extends Form {
     };
   }
 
-  doSubmit = () => {
+  doSubmit = async () => {
     saveFood(this.state.data); //function from foodInDb
     this.props.history.push("/intensive-food");
     console.log("Saved");

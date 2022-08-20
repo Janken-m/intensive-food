@@ -6,12 +6,12 @@ function NavBar() {
     <nav className=" navbar-light bg-light">
       <ul className="d-flex me-4">
         <ol className="navbar-brand">
-          <NavLink className="navbar-brand" to="/">
+          <NavLink className="navbar-brand" to="/intensive-food">
             Intensive Foods
           </NavLink>
         </ol>
         <ol className="navbar-nav">
-          <NavLink className="nav-link" to="/intensive-food">
+          <NavLink className="nav-link" to="/">
             Foods
           </NavLink>
         </ol>

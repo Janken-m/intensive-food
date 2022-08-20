@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
-import { deleteFood, getFoods } from "../Service/fakeFoodService";
-import { getCategories } from "../Service/fakeCategoryService";
+import { deleteFood, getFoods } from "../Service/FoodService";
+import { getCategories } from "../Service/CategoryService";
 import Pagination from "../common/Pagination";
 import ListGroup from "../common/ListGroup";
 import { Paginate } from "../utils/paginate";
@@ -22,13 +22,15 @@ class Foods extends Component {
     sortColumn: { path: "name", order: "asc" },
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const allCategories = await getCategories();
     const categories = [
       DEFAULT_CATEGORY, //Fake database
-      ...getCategories(),
+      ...allCategories,
     ];
+    const foods = await getFoods();
     this.setState({
-      foods: getFoods(),
+      foods,
       categories,
     });
   }
@@ -49,7 +51,7 @@ class Foods extends Component {
 
   handleSort = (sortColumn) => this.setState({ sortColumn }); //sortering /FoodsTable
 
-  handleDelete = (food) => {
+  handleDelete = async (food) => {
     const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods, currentCategory: 1, currentPage: 1 });
     deleteFood(food._id); //optimistik
@@ -102,6 +104,7 @@ class Foods extends Component {
       currentCategory,
       foods: allFoods,
     } = this.state;
+
     const { length: count } = allFoods;
 
     if (count === 0)

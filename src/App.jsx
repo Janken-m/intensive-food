@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Foods from "./Components/Foods";
 import NavBar from "./Components/NavBar";
 import Customers from "./Components/Customers";
@@ -13,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ToastContainer />
         <NavBar />
         <Switch>
           <Route path="/intensive-food/:id" component={FoodForm} />
