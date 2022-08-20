@@ -39,6 +39,7 @@ class FoodForm extends Form {
     if (foodId === "new") return;
 
     const food = await getFood(foodId);
+    console.log("new ", food);
     if (!food) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.maptoViewModel(food) });
@@ -56,7 +57,8 @@ class FoodForm extends Form {
   }
 
   doSubmit = async () => {
-    saveFood(this.state.data); //function from foodInDb
+    const save = await saveFood(this.state.data); //function from foodInDb
+    console.log("save function", save);
     this.props.history.push("/intensive-food");
     console.log("Saved");
   };

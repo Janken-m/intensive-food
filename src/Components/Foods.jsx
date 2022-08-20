@@ -8,6 +8,8 @@ import { Paginate } from "../utils/paginate";
 import FoodsTable from "./FoodsTable";
 import { Link } from "react-router-dom";
 import SearchBox from "../common/SearchBox";
+import http from "../Service/httpService";
+import config from "../config.json";
 
 const DEFAULT_CATEGORY = { _id: "", name: "All Categories" }; //Fake database
 
@@ -54,7 +56,10 @@ class Foods extends Component {
   handleDelete = async (food) => {
     const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods, currentCategory: 1, currentPage: 1 });
-    deleteFood(food._id); //optimistik
+    deleteFood(food._id);
+    try {
+      await http.delete(config.apiFoods + `${food._id}`);
+    } catch (error) {}
   };
 
   handleSearch = (SearchQuery) => {

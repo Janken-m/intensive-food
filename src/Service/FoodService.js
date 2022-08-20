@@ -27,17 +27,17 @@ async function saveFood(food) {
   if (!foodInDb._id) {
     foodInDb._id = Date.now().toString();
     foods.push(foodInDb);
-    // console.log(foodInDb);
+    console.log("food in db", foodInDb);
   }
 
-  return http.post(config.apiFoods, foodInDb);
+  return foodInDb;
 }
 
 async function deleteFood(id) {
   const { data: foods } = await http.get(config.apiFoods);
   let foodInDb = foods.find((food) => food._id === id);
   foods.splice(foods.indexOf(foodInDb), 1);
-  return http.delete(config.apiFoods, foodInDb);
+  return foodInDb;
 }
 
 export { getFoods, getFood, saveFood, deleteFood };

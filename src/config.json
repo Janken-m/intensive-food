@@ -1,5 +1,5 @@
 {
-  "apiFoods": "http://localhost:8000/api/foods",
+  "apiFoods": "http://localhost:8000/api/foods/",
   "apiFoodsId": " http://localhost:8000/api/foods/:id",
   "apiCategory": "http://localhost:8000/api/categories",
   "apiCategoriesId": "http://localhost:8000/api/categories/:id"
