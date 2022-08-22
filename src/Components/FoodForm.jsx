@@ -47,7 +47,6 @@ class FoodForm extends Form {
     if (foodId === "new") return;
 
     const food = await getFood(foodId);
-    console.log("new ", food);
     if (!food) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.maptoViewModel(food) });
