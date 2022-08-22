@@ -1,23 +1,27 @@
 import React from "react";
 import Form from "../common/Form";
 import Joi from "joi";
+import user from "../Service/userService";
 
 class RegisterForm extends Form {
   state = {
-    data: { email: "", name: "", password: "" },
+    data: { username: "", name: "", password: "" },
     errors: {},
   };
 
   schema = Joi.object({
-    email: Joi.string()
+    username: Joi.string()
       .email({ tlds: { allow: false } })
+      .required()
       .label("Username"),
     name: Joi.string().min(2).label("Name"),
     password: Joi.string().required().min(5).label("Password"),
   });
 
-  doSubmit = () => {
-    console.log("Done");
+  doSubmit = async () => {
+    await user.register(this.state.data);
+
+    this.props.history.replace("/intensive-food");
   };
 
   render() {
@@ -25,7 +29,7 @@ class RegisterForm extends Form {
       <form onSubmit={this.handleSubmit}>
         <div className="col">
           <h1 className="ms-2 p-2">Register</h1>
-          {this.renderInput("email", "Username")}
+          {this.renderInput("username", "Username")}
           {this.renderInput("name", "Name")}
           {this.renderInput("password", "Password", "password")}
           {this.renderButton("Register")}

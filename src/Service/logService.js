@@ -13,6 +13,8 @@ export function log(error) {
   Sentry.captureException(error); //log(error) för att anropa den service
 }
 
-export default {
-  init, //den function ska anropas i index.js
+const sentry = {
+  init,
 };
+
+export default sentry;

@@ -5,9 +5,9 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "react-toastify/dist/ReactToastify.css";
-import logService from "./Service/logService";
+import Sentry from "./Service/logService";
 
-logService.init();
+Sentry.init();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
