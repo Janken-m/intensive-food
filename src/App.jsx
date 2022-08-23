@@ -38,7 +38,11 @@ class App extends Component {
           <Route path="/customers" component={Customers} />
           <Route path="/orders" component={Orders} />
           <Route path="/logout" component={Logout} />
-          <Route exact path="/" component={Foods} />
+          <Route
+            exact
+            path="/"
+            render={(props) => <Foods {...props} user={user} />}
+          />
           <Redirect to="/not-found" />
         </Switch>
       </div>
