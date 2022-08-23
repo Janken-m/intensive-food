@@ -9,22 +9,35 @@ import NotFound from "./Components/NotFound";
 import FoodForm from "./Components/FoodForm";
 import LoginForm from "./Components/LoginForm";
 import RegisterForm from "./Components/RegisterForm";
+import Logout from "./Components/Logout";
+import auth from "./Service/authService";
+import ProtectedRoute from "./common/ProtectedRoute";
 
 class App extends Component {
+  state = {
+    user: null,
+  };
+  componentDidMount() {
+    this.setState({ user: auth.getCurrentUser() });
+  }
   render() {
+    const { user } = this.state;
     return (
       <div>
         <ToastContainer />
-        <NavBar />
+        <NavBar user={user} />
         <Switch>
-          <Route path="/intensive-food/:id" component={FoodForm} />
-          <Route path="/intensive-food/new" component={FoodForm} />
+          <ProtectedRoute path="/intensive-food/:id" component={FoodForm} />
+          <Route
+            path="/intensive-food"
+            render={(props) => <Foods {...props} user={user} />}
+          />
+          <Route path="/not-found" component={NotFound} />
           <Route path="/login" component={LoginForm} />
           <Route path="/register" component={RegisterForm} />
           <Route path="/customers" component={Customers} />
           <Route path="/orders" component={Orders} />
-          <Route path="/not-found" component={NotFound} />
-          <Route exact path="/intensive-food" component={Foods} />
+          <Route path="/logout" component={Logout} />
           <Route exact path="/" component={Foods} />
           <Redirect to="/not-found" />
         </Switch>

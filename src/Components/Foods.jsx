@@ -105,6 +105,8 @@ class Foods extends Component {
       foods: allFoods,
     } = this.state;
 
+    const { user } = this.props;
+
     const { length: count } = allFoods;
 
     if (count === 0)
@@ -126,9 +128,14 @@ class Foods extends Component {
           />
         </div>
         <div className="col">
-          <Link to="/intensive-food/new" className="btn btn-primary ms-2 mb-3">
-            New Food
-          </Link>
+          {user && (
+            <Link
+              to="/intensive-food/new"
+              className="btn btn-primary ms-2 mb-3"
+            >
+              New Food
+            </Link>
+          )}
           <p>Showing {filteradCount} foods in the database </p>
 
           <SearchBox
@@ -143,6 +150,7 @@ class Foods extends Component {
             onDelete={this.handleDelete}
             onSort={this.handleSort}
             sortColumn={sortColumn}
+            user={user}
           />
           <Pagination
             itemCount={filteradCount}

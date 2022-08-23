@@ -1,13 +1,15 @@
 import http from "./httpService";
 import config from "../config.json";
+import auth from "./authService";
 
-function register(user) {
+async function register(user) {
   const data = {
     name: user.name,
     email: user.username,
     password: user.password,
   };
-  return http.post(config.apiUser, data);
+  const { headers } = await http.post(config.apiUser, data);
+  auth.loginWithJwt(headers["x-auth-token"]);
 }
 
 const user = {

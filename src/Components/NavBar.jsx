@@ -1,41 +1,47 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ user }) {
   return (
-    <nav className=" navbar-light bg-light">
-      <ul className="d-flex me-4">
-        <ol className="navbar-brand">
-          <NavLink className="navbar-brand" to="/intensive-food">
-            Intensive Foods
-          </NavLink>
-        </ol>
-        <ol className="navbar-nav">
-          <NavLink className="nav-link" to="/">
-            Foods
-          </NavLink>
-        </ol>
-        <ol className="navbar-nav mx-4">
-          <NavLink className="nav-link" to="/customers">
-            Customers
-          </NavLink>
-        </ol>
-        <ol className="navbar-nav">
-          <NavLink className="nav-link" to="/orders">
-            Orders
-          </NavLink>
-        </ol>
-        <ol className="navbar-nav mx-4">
-          <NavLink className="nav-link" to="/login">
-            Login
-          </NavLink>
-        </ol>
-        <ol className="navbar-nav">
-          <NavLink className="nav-link" to="/register">
-            Register
-          </NavLink>
-        </ol>
-      </ul>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/intensive-food">
+          Intensive Foods
+        </Link>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <NavLink className="nav-link" to="/">
+              Foods
+            </NavLink>
+            <NavLink className="nav-link" to="/customers">
+              Customers
+            </NavLink>
+            <NavLink className="nav-link" to="/orders">
+              Orders
+            </NavLink>
+            {!user && (
+              <>
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+                <NavLink className="nav-link" to="/register">
+                  Register
+                </NavLink>
+              </>
+            )}
+            {user && (
+              <>
+                <NavLink className="nav-link" to="/profile">
+                  {user.name}
+                </NavLink>
+                <NavLink className="nav-link" to="/logout">
+                  Logout
+                </NavLink>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }

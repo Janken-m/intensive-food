@@ -19,9 +19,15 @@ class RegisterForm extends Form {
   });
 
   doSubmit = async () => {
-    await user.register(this.state.data);
-
-    this.props.history.replace("/intensive-food");
+    try {
+      await user.register(this.state.data);
+      window.location = "/";
+    } catch (error) {
+      if (error.response.status === 400) {
+        const errors = { username: error.response.data };
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {

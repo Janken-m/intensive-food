@@ -1,6 +1,9 @@
 import React from "react";
 import Joi from "joi";
 import Form from "../common/Form";
+import user from "../Service/authService";
+import auth from "../Service/authService";
+import { Redirect } from "react-router-dom";
 
 class LoginForm extends Form {
   state = {
@@ -13,12 +16,21 @@ class LoginForm extends Form {
     password: Joi.string().required().min(4).label("Password"),
   });
 
-  doSubmit = () => {
-    //vad som händer efter logg in lyckades
-    console.log("LOGGAED IN");
+  doSubmit = async () => {
+    try {
+      await user.login(this.state.data);
+      const { state } = this.props.location;
+      window.location = state ? state.from : "/";
+    } catch (error) {
+      if (error.response.status === 400) {
+        const errors = { username: error.response.data };
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
       <form onSubmit={this.handleSubmit}>
         {this.renderInput("username", "Username")}
