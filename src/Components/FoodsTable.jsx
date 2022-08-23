@@ -34,9 +34,7 @@ class FoodsTable extends Component {
           >
             Delete
           </button>
-        ) : (
-          <td></td>
-        ),
+        ) : null,
     },
   ];
   render() {
