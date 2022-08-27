@@ -30,7 +30,7 @@ class App extends Component {
           <ProtectedRoute path="/intensive-food/:id" component={FoodForm} />
           <Route
             path="/intensive-food"
-            render={(props) => <Foods {...props} user={user} />}
+            render={(props) => <Foods {...props} />}
           />
           <Route path="/not-found" component={NotFound} />
           <Route path="/login" component={LoginForm} />
@@ -38,11 +38,7 @@ class App extends Component {
           <Route path="/customers" component={Customers} />
           <Route path="/orders" component={Orders} />
           <Route path="/logout" component={Logout} />
-          <Route
-            exact
-            path="/"
-            render={(props) => <Foods {...props} user={user} />}
-          />
+          <Route exact path="/" render={(props) => <Foods {...props} />} />
           <Redirect to="/not-found" />
         </Switch>
       </div>

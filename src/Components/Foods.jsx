@@ -8,6 +8,8 @@ import { Paginate } from "../utils/paginate";
 import FoodsTable from "./FoodsTable";
 import { Link } from "react-router-dom";
 import SearchBox from "../common/SearchBox";
+import { toast } from "react-toastify";
+import auth from "../Service/authService";
 
 const DEFAULT_CATEGORY = { _id: "", name: "All Categories" }; //Fake database
 
@@ -52,9 +54,16 @@ class Foods extends Component {
   handleSort = (sortColumn) => this.setState({ sortColumn }); //sortering /FoodsTable
 
   handleDelete = async (food) => {
+    const originalFood = this.state.foods;
     const foods = this.state.foods.filter((f) => f._id !== food._id);
     this.setState({ foods, currentCategory: 1, currentPage: 1 });
-    deleteFood(food._id);
+
+    try {
+      await deleteFood(food._id);
+    } catch (error) {
+      toast.error("cannot delete item");
+      this.setState({ foods: originalFood });
+    }
   };
 
   handleSearch = (SearchQuery) => {
@@ -105,7 +114,7 @@ class Foods extends Component {
       foods: allFoods,
     } = this.state;
 
-    const { user } = this.props;
+    const user = auth.getCurrentUser();
 
     const { length: count } = allFoods;
 
@@ -128,7 +137,7 @@ class Foods extends Component {
           />
         </div>
         <div className="col">
-          {user && (
+          {user?.isAdmin && (
             <Link
               to="/intensive-food/new"
               className="btn btn-primary ms-2 mb-3"
@@ -150,7 +159,6 @@ class Foods extends Component {
             onDelete={this.handleDelete}
             onSort={this.handleSort}
             sortColumn={sortColumn}
-            user={user}
           />
           <Pagination
             itemCount={filteradCount}

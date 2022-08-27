@@ -14,14 +14,17 @@ async function getFood(id) {
 async function saveFood(food) {
   const foodId = food._id;
   delete food._id;
+  //or :
+  // const {_id : foodId , ...body } = food
+  // if (foodId) return  http.put(config.apiFoods + `${foodId}`, body)
 
   if (!foodId) return await http.post(config.apiFoods, food);
 
   return await http.put(config.apiFoods + `${foodId}`, food);
 }
 
-async function deleteFood(id) {
-  return await http.delete(config.apiFoods + `${id}`);
+function deleteFood(id) {
+  return  http.delete(config.apiFoods + `${id}`);
 }
 
 export { getFoods, getFood, saveFood, deleteFood };

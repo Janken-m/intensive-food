@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Table from "../common/Table.jsx";
 import Favorite from "../common/Favorite";
 import { Link } from "react-router-dom";
+import auth from "../Service/authService";
 
 class FoodsTable extends Component {
   columns = [
@@ -24,19 +25,28 @@ class FoodsTable extends Component {
         />
       ),
     },
-    {
-      key: "delete",
-      content: (data) =>
-        this.props.user ? (
-          <button
-            onClick={() => this.props.onDelete(data)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
-        ) : null,
-    },
   ];
+
+  DeleteColumn = {
+    key: "delete",
+    content: (data) => (
+      <button
+        onClick={() => this.props.onDelete(data)}
+        className="btn btn-danger"
+      >
+        Delete
+      </button>
+    ),
+  };
+
+  constructor() {
+    super();
+
+    const user = auth.getCurrentUser();
+
+    if (user?.isAdmin) this.columns.push(this.DeleteColumn);
+  }
+
   render() {
     const { foods, sortColumn, onSort } = this.props;
     return (
