@@ -4,7 +4,6 @@ import auth from "../Service/authService";
 
 function ProtectedRoute({ path, component: Component, render }) {
   const user = auth.getCurrentUser();
-  const user = auth.getCurrentUser();
   return (
     <Route
       path={path}
