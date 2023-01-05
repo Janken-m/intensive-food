@@ -65,7 +65,6 @@ class FoodForm extends Form {
   doSubmit = () => {
     saveFood(this.state.data); //function from foodInDb
     this.props.history.push("/intensive-food");
-    console.log("Saved");
   };
 
   render() {
