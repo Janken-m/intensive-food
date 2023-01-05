@@ -4,12 +4,13 @@ import auth from "../Service/authService";
 
 function ProtectedRoute({ path, component: Component, render }) {
   const user = auth.getCurrentUser();
+  const user = auth.getCurrentUser();
   return (
     <Route
       path={path}
       render={(props) => {
         // console.log("protectedRoute", props);
-        if (!user)
+        if (!user?.isAdmin)
           return (
             <Redirect
               to={{
