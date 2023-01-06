@@ -121,7 +121,7 @@ class Foods extends Component {
     if (count === 0)
       return (
         <h2>
-          <center> Sorry! There is no foods in database. </center>
+          <center> Render deployment </center>
         </h2>
       );
 
