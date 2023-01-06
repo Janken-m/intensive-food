@@ -14,9 +14,6 @@ async function getFood(id) {
 async function saveFood(food) {
   const foodId = food._id;
   delete food._id;
-  //or :
-  // const {_id : foodId , ...body } = food
-  // if (foodId) return  http.put(config.apiFoods + `${foodId}`, body)
 
   if (!foodId) return await http.post(config.apiFoods, food);
 
@@ -24,7 +21,7 @@ async function saveFood(food) {
 }
 
 function deleteFood(id) {
-  return  http.delete(config.apiFoods + `${id}`);
+  return http.delete(config.apiFoods + `${id}`);
 }
 
 export { getFoods, getFood, saveFood, deleteFood };

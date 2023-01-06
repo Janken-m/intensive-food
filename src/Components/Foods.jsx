@@ -114,7 +114,7 @@ class Foods extends Component {
       foods: allFoods,
     } = this.state;
 
-    const user = auth.getCurrentUser();
+    const { user } = this.props;
 
     const { length: count } = allFoods;
 
@@ -159,6 +159,7 @@ class Foods extends Component {
             onDelete={this.handleDelete}
             onSort={this.handleSort}
             sortColumn={sortColumn}
+            user={user}
           />
           <Pagination
             itemCount={filteradCount}
